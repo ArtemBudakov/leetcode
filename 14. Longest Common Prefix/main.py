@@ -8,19 +8,16 @@ class Solution:
 
         If there is no common prefix, return an empty string "".
         """
-        first_word: str = strs[0]
-        prefix: str = ""
+        prefix: str = strs[0]
         for word in strs[1:]:
-            if prefix == "":
-                for label_word, label_first_word in zip(word, first_word):
-                    if label_first_word == label_word:
-                        prefix += label_word
-            else:
-                new_prefix: str = ""
-                for label_word, prefix_label in zip(word, prefix):
-                    if prefix_label == label_word:
-                        new_prefix += prefix_label
-                prefix = new_prefix
+            new_prefix: str = ""
+            for label_word, label_prefix in zip(word, prefix):
+                if label_prefix == label_word:
+                    new_prefix += label_prefix
+                else:
+                    prefix = new_prefix
+                    break
+            prefix = new_prefix
 
         return prefix
 
