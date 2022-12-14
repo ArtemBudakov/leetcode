@@ -27,25 +27,16 @@ class LinkedList:
 class Solution:
     def middleNode(self, head: Optional[ListNode]) -> Optional[ListNode]:
 
-        list_of_nodes = self.get_all_nodes(head)
-
-        if len(list_of_nodes) % 2 == 1:
-            result = list_of_nodes[len(list_of_nodes) // 2]
-        else:
-            result = list_of_nodes[len(list_of_nodes) // 2]
-        return result
-
-    def get_all_nodes(self, head: ListNode):
-        nodes_list: list = []
-        node: ListNode = head
-
+        slow_node: ListNode = head
+        fast_node: ListNode = head
         while True:
-            if node.next is None:
-                nodes_list.append(node)
-                break
-            nodes_list.append(node)
-            node = node.next
-        return nodes_list
+            if fast_node.next is None:
+                return slow_node
+            elif fast_node.next.next is None:
+                return slow_node.next
+
+            slow_node = slow_node.next
+            fast_node = fast_node.next.next
 
 
 def test(linked_list: LinkedList):
@@ -71,7 +62,12 @@ if __name__ == '__main__':
     result = s1.middleNode(head=ll1.head)
     print(result.val)
 
-    # ll1.append('a')
-    # ll1.append('b')
-    # ll1.append('c')
-    # test(ll1)
+    base_list = [1, 2, 3, 4, 5, 6]
+
+    ll1 = LinkedList()
+    for el in base_list:
+        ll1.append(el)
+    test(ll1)
+    s1 = Solution()
+    result = s1.middleNode(head=ll1.head)
+    print(result.val)
